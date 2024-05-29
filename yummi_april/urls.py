@@ -16,16 +16,21 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from main.views import index, manager
+from django.urls import path, include
+from main.views import IndexView, manager
 from yummi_april import settings
 from django.conf.urls.static import static
+from account.views import RegisterView, MyLoginView, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('manager/', manager, name='manager'),
 
-    path('', index, name='index'),
+    path('', include('main.urls')),
+
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', MyLoginView.as_view(), name='login'),
+    path('logout', logout_view, name='logout'),
 ]
 
 if settings.DEBUG:

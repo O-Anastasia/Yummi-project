@@ -54,7 +54,7 @@
                                     <a href="{{ dish.photo.url }}" class="glightbox"><img src="{{ dish.photo.url }}" class="menu-img img-fluid" alt=""></a>
                                     <h4>{{ dish }}</h4>
                                     <p class="ingredients">
-                                        {{ dish.ingredients }}
+                                        {{ dish.ingredients|safe }}
                                     </p>
                                     <p class="price">
                                         {{ dish.price  }}
