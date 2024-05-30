@@ -14,7 +14,7 @@ class MyLoginView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        return '/'
+        return self.request.GET.get('next', '/')
 
 
 def logout_view(request):

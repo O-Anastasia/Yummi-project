@@ -5,6 +5,11 @@ from .forms import ReservationForm
 from django.views.generic import TemplateView
 from django.contrib import messages
 
+
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+def is_manager(user):
+    return user.groups.filter(name='manager').exists()
 # Create your views here.
 class IndexView(TemplateView):
     template_name = 'main.html'
@@ -42,5 +47,7 @@ class IndexView(TemplateView):
             messages.success(request, 'Ваше бронирование принято')
             return redirect('main:index')
 
+@login_required(login_url='/login/')
+@user_passes_test(is_manager)
 def manager(request):
-    ...
+    return HttpResponse('Manager page')
